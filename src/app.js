@@ -1,9 +1,19 @@
-const express = require('express');
+const path = require('path'); // start setup for file path to link everything together
+const express = require('express'); // set up express framework
 const app = express();
 
+const publicDirectoryPath = path.join(__dirname, '../public');
+app.use(express.static(publicDirectoryPath)); // Use path to reach public assets
+
+app.set('view engine', 'hbs'); // set up handlebar template engine
+
 app.get('/', function (req, res) {
-    res.send('<h1>Welcome to Ethan\'s node app!</h1>');
+    res.render('index', {
+        title: "Home",
+        name: "Ethan"
+    });
 })
+
 app.get('/about', function (req, res) {
     res.send('<h2>Welcome to Ethan\'s About Me page!</h2>');
 })
